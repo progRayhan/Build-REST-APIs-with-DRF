@@ -13,8 +13,8 @@ class MovieSerializer(serializers.ModelSerializer):
         # fields = ['name','description','active']
         
     def get_len_name(self, objects):
-        length = len(objects.name)
-        return length
+        return len(objects.name)
+        # length = len(objects.name)
 
     def validate(self, data):
         if data['name'] == data['description']:
