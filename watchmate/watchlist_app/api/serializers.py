@@ -8,7 +8,26 @@ class WatchListSerializer(serializers.ModelSerializer):
         model = WatchList
         fields = '__all__'
         
+    # def validate_title(self, value):
+    #     if len(value) < 2:
+    #         raise serializers.ValidationError("Title is too short !")
+    #     else:
+    #         return value
+        
+    # def validate(self, data):
+    #     if data['title'] == data['storyline']:
+    #         raise serializers.ValidationError("Name and Description should not be same !")
+    #     else:
+    #         return data
+        
+    # def validate(self, data):
+    #     if data["title"] == data["storyline"]:
+    #         return serializers.ValidationError("Title & Description should be different !")
+    #     else:
+    #         raise data
+        
 class StreamPlatformSerializer(serializers.ModelSerializer):
+    WatchList = WatchListSerializer(many=True, read_only=True)
     class Meta:
         model = StreamPlatform
         fields = '__all__'
