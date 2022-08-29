@@ -26,7 +26,7 @@ class WatchListSerializer(serializers.ModelSerializer):
     #     else:
     #         raise data
         
-class StreamPlatformSerializer(serializers.ModelSerializer):
+class StreamPlatformSerializer(serializers.HyperlinkedModelSerializer):
     WatchList = WatchListSerializer(many=True, read_only=True)
     # WatchList = serializers.StringRelatedField(many=True)
     # WatchList = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
