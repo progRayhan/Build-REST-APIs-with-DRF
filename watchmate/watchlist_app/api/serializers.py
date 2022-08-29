@@ -28,6 +28,14 @@ class WatchListSerializer(serializers.ModelSerializer):
         
 class StreamPlatformSerializer(serializers.ModelSerializer):
     WatchList = WatchListSerializer(many=True, read_only=True)
+    # WatchList = serializers.StringRelatedField(many=True)
+    # WatchList = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # WatchList = serializers.HyperlinkedRelatedField(
+    #     many=True,
+    #     read_only=True,
+    #     view_name='movie-details'
+    # )
+    # WatchList = serializers.HyperlinkedIdentityField(view_name='movie-details')
     class Meta:
         model = StreamPlatform
         fields = '__all__'
