@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 from watchlist_app.models import WatchList, StreamPlatform, Review
 from watchlist_app.api.serializers import (WatchListSerializer, StreamPlatformSerializer,
                                            ReviewSerializer)
@@ -11,6 +12,7 @@ from rest_framework import generics
 
 class ReviewCreate(generics.CreateAPIView):
     serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
         return Review.objects.all()
@@ -37,6 +39,7 @@ class ReviewList(generics.ListAPIView):
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 # class ReviewDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
 #     queryset = Review.objects.all()
@@ -95,6 +98,7 @@ class StreamPlatformDetailsAV(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 class WatchListAV(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     def get(self, request):
         watch = WatchList.objects.all()
         serializer = WatchListSerializer(watch, many=True)
@@ -214,3 +218,5 @@ class WatchListDetailAV(APIView):
         # movie = Movie.objects.get(pk=pk)
         # movie.delete()
         # return Response(status=status.HTTP_204_NO_CONTENT)
+        
+        
